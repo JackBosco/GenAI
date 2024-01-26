@@ -164,3 +164,4 @@ cython_debug/
 slides/*.pdf
 # all data files
 **/data/*
+ass1/ciphar_net*
