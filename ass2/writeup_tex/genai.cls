@@ -26,8 +26,9 @@
 
 \newcommand\subtitle{
     \paragraph{
-        This is Generative AI with Cody Watson. I am Jack Bosco. I made a \LaTeX \hspace{1pt}
-        class for doing homework assignements, 
-        very cool! Also, a lot of the \LaTeX \hspace{1pt} code is `borrowed' from Lu Kefu. He has great taste for document formatting.
+        This is Generative AI with Cody Watson. I made a \LaTeX \hspace{1pt}
+        class for doing writeups on homework assignements. 
+		Very cool!
+		Also, a lot of the \LaTeX \hspace{1pt} code is `borrowed' from Lu Kefu. He has great taste for document formatting.
     }
 }

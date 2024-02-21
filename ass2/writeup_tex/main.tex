@@ -2,9 +2,7 @@
 
 \title{Homework 2 Writeup}
 \author{Due: Friday I think}
-\date{}
-
-
+\date{Jack Bosco}
 
 \begin{document}
 
@@ -19,6 +17,14 @@
 \maketitle
 
 \subtitle
+
+\begin{center}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1\textwidth]{class_logo.png}\\
+		\small Image Credit: ChatGPT
+	\end{figure}
+\end{center}
 
 \newpage
 
@@ -77,32 +83,35 @@ To train the GAN, I used the following processes:
 \section{Issues}
 
 The main issue I encountered was making the generator produce realistic images.
-Weight collapse was not an issue since I used the Adams optimizer to add hyperamaters such as weight decay and epsilon.
+Weight collapse was not a large issue since I used the Adams optimizer to add hyperamaters such as weight decay and epsilon.
 Thise parameters made the GAN more stable, since there was a balance between exploration and exploitation.
 Ultimately, after some hyperparameter tuning, I was able to generate images that were satisfiably recognizable.
 
-The hyperparemeter values I chose were:\\
-\begin{tabular}{c|c|c}
-	\textbf{Hyper} & \textbf{Generator} & \textbf{Discriminator} \\
-	\hline
-	Learning rate $\eta$ & $0.0002$ & $0.0001$\\
-	Batch size & $64$ & $64$\\
-	Epsilon $\epsilon$ & $2e^{-6}$ & $2e^{-5}$\\
-	Weight decay $\lambda$ & $e^{-12}$ & $e^{-10}$
-\end{tabular}
+The hyperparemeter values I chose were:
+\begin{center}
+	\begin{tabular}{c|c|c}
+		\textbf{Hyper} & \textbf{Generator} & \textbf{Discriminator} \\
+		\hline
+		Learning rate $\eta$ & $0.0002$ & $0.0001$\\
+		Batch size & $128$ & $64_\text{real}+64_{fake}$\\
+		Epsilon $\epsilon$ & $2e^{-6}$ & $2e^{-5}$\\
+		Weight decay $\lambda$ & $e^{-12}$ & $e^{-10}$
+	\end{tabular}
+\end{center}
+The model was trained for 25 epochs; examples after traning and loss curves are shown in the next section.
 
 \section{Evaluation}
 
 \begin{enumerate}
 
 	\item Quality of the generated images: Are the generated images recognizable as clothing items?\\
-	\textcolor{red}{Although blurry, I can tell the images are clothing items. Check out the images below: }
+	\textcolor{red}{Although blurry, I can tell the images are clothing items. Check out the examples below: }
 
 	\begin{figure}[h]
 		\includegraphics[width=.5\textwidth]{example_images.png}	
 	\end{figure}
 
-	\textcolor{red}{Here, you can make out the clothing items by their general shape, although the pixels are somewhat grainy.}
+	\textcolor{red}{These were produced after training for 25 epochs. Here, you can make out the clothing items by their general shape, although the pixels are somewhat grainy.}
 
 	\item Diversity of the generated images: Does the model generate a variety of clothing items?\\
 	\textcolor{red}{ Yup, I made sure to set epsilon to a non-zero value, so the model should generate a variety of clothing items.
@@ -112,7 +121,7 @@ The hyperparemeter values I chose were:\\
 
 	\item Training stability: How stable are the loss curves? Are there signs of mode collapse?
  
-	\textcolor{red}{The models' loss curves (D for discriminator, G for generator) are shown below:}
+	\textcolor{red}{The loss curves (D for discriminator, G for generator) after 25 epochs and a batch size of 64 are shown below:}
  
         \newpage
 
@@ -120,11 +129,13 @@ The hyperparemeter values I chose were:\\
 		\includegraphics[width=.7\linewidth]{loss_chart.png}
 	\end{figure}
 
-	\textcolor{red}{The loss curves are pretty stable. The generator's loss is consistently higher than the discriminator's loss, which makes sense because the generator has to train more weights than the descriminator. 
-		when the generator's loss spikes and the discriminator's loss drops, it indicates the generator is producing poor images.
-		However, the loss curves quickly converge. There is partial mode collapse, since the generator is biased towards shirts and dresses (as seen in the generated images).
+	\textcolor{red}{The loss curves are pretty stable. The generator's loss is consistently higher than the discriminator's loss, which makes sense because the generator has to train more weights than the descriminator.
+		In addition, the generator's task is more difficult, since it has to generate realistic images, while the discriminator only has to classify them. 
+		When the generator's loss spikes and the discriminator's loss drops, it indicates the generator is producing poor images.
+		However, the loss begin to converge after $10,000$ iterations. There is partial mode collapse, since the generator is biased towards shirts and dresses (as seen in the generated images).
 		Shirts and dresses are similar and more uniform in shape than other clothing items, so the generator is more likely to fool the discriminator with them.
-		This leads to a partial mode collapse.
+		This leads to a partial mode collapse, where the generator is biased towards a subset of the data.
+		All in all, I am satisfied with this model's balance between diversity and realism.
 	}
 
 \end{enumerate}
