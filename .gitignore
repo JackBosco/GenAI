@@ -165,4 +165,12 @@ slides/*.pdf
 # all data files
 **/data/*
 ass1/ciphar_net*
-ass2/*.pth
+**/*.pth
+
+#latex junk
+**/writeup_tex/*.aux
+**/writeup_tex/*.log
+**/writeup_tex/*.out
+**/writeup_tex/*.dvi
+**/writeup_tex/*.fls
+**/writeup_tex/*.fdb_latexmk
