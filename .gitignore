@@ -174,3 +174,5 @@ ass1/ciphar_net*
 **/writeup_tex/*.dvi
 **/writeup_tex/*.fls
 **/writeup_tex/*.fdb_latexmk
+
+**/forgor/*
